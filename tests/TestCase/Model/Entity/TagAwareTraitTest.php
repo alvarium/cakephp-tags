@@ -44,17 +44,17 @@ class TagAwareTraitTest extends TestCase
 
     public function testTag()
     {
-        $count = $this->Table->get(1)->tag_count;
+        $count = $this->Table->get('153e136f-6a9f-47f7-a26c-c4df71c71ab1')->tag_count;
 
-        $entity = new TagsMuffin(['id' => 1]);
+        $entity = new TagsMuffin(['id' => '153e136f-6a9f-47f7-a26c-c4df71c71ab1']);
         $entity->tag('new');
-        $this->assertEquals($count + 1, $this->Table->get(1)->tag_count);
+        $this->assertEquals($count + 1, $this->Table->get('153e136f-6a9f-47f7-a26c-c4df71c71ab1')->tag_count);
     }
 
     public function testUntag()
     {
-        $entity = new TagsMuffin(['id' => 1]);
+        $entity = new TagsMuffin(['id' => '153e136f-6a9f-47f7-a26c-c4df71c71ab1']);
         $entity->untag('Color');
-        $this->assertEquals(1, $this->Table->get(1)->tag_count);
+        $this->assertEquals(1, $this->Table->get('153e136f-6a9f-47f7-a26c-c4df71c71ab1')->tag_count);
     }
 }

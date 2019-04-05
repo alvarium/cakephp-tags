@@ -1,0 +1,36 @@
+stages:
+- test
+
+.test: &test
+  image: "alvarium/php:${PHP_VERSION}"
+  before_script:
+  - composer install
+  script:
+  - composer test
+
+php:7.0:
+  <<: *test
+  variables:
+    PHP_VERSION: "7.0"
+
+php:7.1:
+  <<: *test
+  variables:
+    PHP_VERSION: "7.1"
+
+php:7.2:
+  <<: *test
+  variables:
+    PHP_VERSION: "7.2"
+
+php:7.3:
+  <<: *test
+  coverage: /Lines:\s*([0-9.]+)/
+  variables:
+    PHP_VERSION: "7.3"
+  before_script:
+  - pecl install xdebug
+  - docker-php-ext-enable xdebug
+  - composer install
+  script:
+  - composer test -- --coverage-text --colors=never

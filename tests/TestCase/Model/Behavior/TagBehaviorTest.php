@@ -160,7 +160,7 @@ class TagBehaviorTest extends TestCase
     {
         $data = [
             'name' => 'Muffin',
-            'tags' => '1:Color, 2:Dark Color',
+            'tags' => 'efe1289b-c68c-40b4-87d6-57a0829f8fce:Color, 09a50a33-b44f-4dd5-a1ab-a7751b20cc5c:Dark Color',
         ];
 
         $entity = $this->Table->newEntity($data);
@@ -171,8 +171,8 @@ class TagBehaviorTest extends TestCase
         $data = [
             'name' => 'Muffin',
             'tags' => ['_ids' => [
-                '1',
-                '2',
+                'efe1289b-c68c-40b4-87d6-57a0829f8fce',
+                '09a50a33-b44f-4dd5-a1ab-a7751b20cc5c',
             ]],
         ];
 
@@ -186,7 +186,7 @@ class TagBehaviorTest extends TestCase
     {
         $data = [
             'name' => 'Muffin',
-            'tags' => '1:Color, foo',
+            'tags' => 'efe1289b-c68c-40b4-87d6-57a0829f8fce:Color, foo',
         ];
 
         $entity = $this->Table->newEntity($data);
@@ -210,15 +210,20 @@ class TagBehaviorTest extends TestCase
     {
         $data = [
             'name' => 'Muffin',
-            'tags' => '1:Color, 2:Dark Color',
+            'tags' => 'efe1289b-c68c-40b4-87d6-57a0829f8fce:Color, 09a50a33-b44f-4dd5-a1ab-a7751b20cc5c:Dark Color',
         ];
 
-        $counter = $this->Table->Tags->get(1)->counter;
+        $counter = $this
+            ->Table
+            ->Tags
+            ->get('efe1289b-c68c-40b4-87d6-57a0829f8fce')
+            ->counter
+        ;
         $entity = $this->Table->newEntity($data);
 
         $this->Table->save($entity);
 
-        $result = $this->Table->Tags->get(1)->counter;
+        $result = $this->Table->Tags->get('efe1289b-c68c-40b4-87d6-57a0829f8fce')->counter;
         $expected = $counter + 1;
         $this->assertEquals($expected, $result);
 
@@ -236,7 +241,10 @@ class TagBehaviorTest extends TestCase
             'taggedCounter' => false,
         ]);
 
-        $count = $this->Table->get(1)->tag_count;
+        $count = $this->Table
+            ->get('153e136f-6a9f-47f7-a26c-c4df71c71ab1')
+            ->tag_count
+        ;
 
         $data = [
             'id' => 1,
@@ -246,7 +254,10 @@ class TagBehaviorTest extends TestCase
         $entity = $this->Table->newEntity($data);
         $this->Table->save($entity);
 
-        $result = $this->Table->get(1)->tag_count;
+        $result = $this->Table
+            ->get('153e136f-6a9f-47f7-a26c-c4df71c71ab1')
+            ->tag_count
+        ;
         $this->assertEquals($count, $result);
     }
 
@@ -266,6 +277,8 @@ class TagBehaviorTest extends TestCase
 
     public function testAssociationConditionsAreWorkingAsExpected()
     {
-        $this->assertEquals(2, count($this->Table->get(1, ['contain' => ['Tags']])->tags));
+        $this->assertEquals(2, count(
+            $this->Table->get('153e136f-6a9f-47f7-a26c-c4df71c71ab1', ['contain' => ['Tags']])->tags
+        ));
     }
 }
