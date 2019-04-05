@@ -49,5 +49,8 @@
         "psr-4" : {
             "Muffin\\Tags\\Test\\" : "tests"
         }
+    },
+    "scripts": {
+        "test": "phpunit"
     }
 }
