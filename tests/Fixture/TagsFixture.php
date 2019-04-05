@@ -8,7 +8,7 @@ class TagsFixture extends TestFixture
     public $table = 'tags_tags';
 
     public $fields = [
-        'id' => ['type' => 'integer'],
+        'id' => ['type' => 'uuid', 'null' => false],
         'namespace' => ['type' => 'string', 'length' => 255, 'null' => true],
         'tag_key' => ['type' => 'string', 'length' => 255],
         'slug' => ['type' => 'string', 'length' => 255],
@@ -23,6 +23,7 @@ class TagsFixture extends TestFixture
 
     public $records = [
         [
+            'id' => 'efe1289b-c68c-40b4-87d6-57a0829f8fce',
             'namespace' => null,
             'tag_key' => 'color',
             'slug' => 'color',
@@ -30,6 +31,7 @@ class TagsFixture extends TestFixture
             'counter' => 3,
         ],
         [
+            'id' => '09a50a33-b44f-4dd5-a1ab-a7751b20cc5c',
             'namespace' => null,
             'tag_key' => 'dark-color',
             'slug' => 'dark-color',
